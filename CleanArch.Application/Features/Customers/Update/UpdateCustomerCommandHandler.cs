@@ -19,7 +19,7 @@ public class UpdateCustomerCommandHandler(
 
         if (customer is null)
         {
-            return Result<bool>.Failure("Customer already exists");
+            return Result<bool>.Failure("Customer not exists");
         }
 
         if (customer.TaxNumber != request.taxnumber)

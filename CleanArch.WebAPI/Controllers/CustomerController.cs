@@ -1,4 +1,5 @@
 ﻿using CleanArch.Application.Features.Customers.Add;
+using CleanArch.Application.Features.Customers.Delete;
 using CleanArch.Application.Features.Customers.GetAll;
 using CleanArch.Application.Features.Customers.Update;
 using CleanArch.WebAPI.Abstractions;
@@ -26,7 +27,14 @@ public sealed class CustomerController(IMediator mediator) : ApiController(media
     }
 
     [HttpPut]
-    public async Task<IActionResult> Create(UpdateCustomerCommand request)
+    public async Task<IActionResult> Update(UpdateCustomerCommand request)
+    {
+        var response = await _mediator.Send(request, CancellationToken.None);
+        return StatusCode(response.StatusCode, response);
+    }    
+    
+    [HttpDelete]
+    public async Task<IActionResult> Delete(DeleteCustomerCommand request)
     {
         var response = await _mediator.Send(request, CancellationToken.None);
         return StatusCode(response.StatusCode, response);
