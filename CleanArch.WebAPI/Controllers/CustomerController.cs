@@ -1,5 +1,6 @@
 ﻿using CleanArch.Application.Features.Customers.Add;
 using CleanArch.Application.Features.Customers.GetAll;
+using CleanArch.Application.Features.Customers.Update;
 using CleanArch.WebAPI.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,13 @@ public sealed class CustomerController(IMediator mediator) : ApiController(media
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateCustomerCommand request)
+    {
+        var response = await _mediator.Send(request, CancellationToken.None);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Create(UpdateCustomerCommand request)
     {
         var response = await _mediator.Send(request, CancellationToken.None);
         return StatusCode(response.StatusCode, response);

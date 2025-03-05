@@ -23,7 +23,6 @@ public class CreateCustomerCommandHandler(
 
         var customer = mapper.Map<Customer>(request);
         await customerRepository.AddAsync(customer, cancellationToken);
-        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
     }
